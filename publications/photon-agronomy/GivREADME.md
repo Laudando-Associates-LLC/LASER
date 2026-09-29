@@ -1,0 +1,1 @@
+Photon Agronomy & Photon Throughput Economy: an engineering framework connecting photonic treatment, plant response, and farm economics, informed by L&Aser™ development. Includes the author preprint and supporting scientific materials. Not peer reviewed.
