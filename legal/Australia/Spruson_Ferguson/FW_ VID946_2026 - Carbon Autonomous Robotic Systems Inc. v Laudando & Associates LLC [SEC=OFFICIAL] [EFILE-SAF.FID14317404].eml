@@ -1,0 +1,1108 @@
+Received: from IA0PR12MB7723.namprd12.prod.outlook.com (2603:10b6:208:431::10)
+ by DSVPR12MB073533.namprd12.prod.outlook.com with HTTPS; Mon, 23 Nov 2026
+ 07:40:00 +0000
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=fail;
+ b=Easey1zswQ1aat0xiMpPL0rOsGH1+YyJ0sjnG28tJjE/dYzWEXN264cXGR+ewgkPnyt967F4TObcpz6RFcxvK7qWSz0rUGUq/29sj1R6jyBY/+3Z/E7x2CkqPyWILWURJePb7PAqiVrCM7Skdt9cMZqKK+wSG1WIyF1wusBkFqvsbGNCBLHQ7M19/Vw4AV9bcNif0eCEckCX94uGwsmO6wYAKseR2q8ikO6ltxHS/4EJu8CR/v/C5nTfUMaBpclDAGRTlenbpzsoR5d0XuLh5GVvL6eZOG3fBSkg57sm0W14IZa6zys1CERCHqHRFKYHP6RwmEL+v08iL/CUCleBTA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RyA7HlWldCXYIif7CVvKGHoJHqCKWr8zmmAd5Geep5I=;
+ b=IggMW+AQOoXtFAo13/5PJN28F+OkRUt3psQA4U46ijLP0D5KDUNRanmxpPd4MwdmYSwmm6qIt6OOSzIwXGRmmWnXI7msue6lFc7tSe1/TQb9hnaoXkEQn+kB53DSUmoZDqClbwTwEd6ISlby+6SizgG5oBONZGmiJEqe2ZxHEM+45j7Ma/e7CQ/FMY+LQa2JEGktFDTNYa8Koa5Sdkx1rLyf0wYx4uXwHWQQrdUeUO39dLgWx/xBBnZxqEHmt4V35L9SJzYqhSlCB7ZOpggnWKg0HVnMJB631Ex7LYrWvanbb7IJWMTHzqzQTmDwN0uoLwgiJusvNuONABJTOXDgqQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 148.163.129.48) smtp.rcpttodomain=laudando.com smtp.mailfrom=spruson.com;
+ dmarc=fail (p=reject sp=reject pct=100) action=oreject
+ header.from=spruson.com; dkim=fail (body hash did not verify)
+ header.d=spruson.com; arc=fail (47)
+Received: from PH7P221CA0042.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::10)
+ by IA0PR12MB7723.namprd12.prod.outlook.com (2603:10b6:208:431::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Mon, 23 Nov
+ 2026 07:39:57 +0000
+Received: from CY7PEPF000000E8.namprd04.prod.outlook.com
+ (2603:10b6:510:33c:cafe::48) by PH7P221CA0042.outlook.office365.com
+ (2603:10b6:510:33c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
+ 23 Nov 2026 07:39:57 +0000
+Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP is
+ 148.163.129.48) smtp.mailfrom=spruson.com; dkim=fail (body hash did not
+ verify) header.d=spruson.com;dmarc=fail action=oreject
+ header.from=spruson.com;compauth=none reason=454
+Received-SPF: Fail (protection.outlook.com: domain of spruson.com does not
+ designate 148.163.129.48 as permitted sender)
+ receiver=protection.outlook.com; client-ip=148.163.129.48;
+ helo=dispatch1-us1.ppe-hosted.com;
+Received: from dispatch1-us1.ppe-hosted.com (148.163.129.48) by
+ CY7PEPF000000E8.mail.protection.outlook.com (10.167.247.164) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.5
+ via Frontend Transport; Mon, 23 Nov 2026 07:39:57 +0000
+Authentication-Results-Original: ppe-hosted.com; spf=pass
+ smtp.mailfrom=spruson.com; dkim=pass header.d=spruson.com header.s=selector1;
+ dmarc=pass header.from=spruson.com header.policy=none; 
+X-Virus-Scanned: Proofpoint Essentials engine
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazon11022113.outbound.protection.outlook.com [40.107.40.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 3B339180068
+	for <chris@laudando.com>; Mon, 23 Nov 2026 07:39:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZUI+xEdwJrcNNDxyfrsk9WhJN7iZP9X+n9MKa0kOR420bl6bHRG9BrJeR/RuaMBe6v7lZC8G6Y/JP/QXIQJ/rabmABxa6qEkYwNE8+QrKPWrtjrNp6WamLs9kmKzzdcPW2feXQF2LGCzCWRlzJMz/qVZb8k8X0TMqcx0ReVKPsiHcZBkztgrb3ZlmBxxk2CBnBLE82IyQdHQkNXgY5aFOfpCulqhs/zVMnTIQIJu0/l44tL3XOAiA8QAgC6Wx/kZu4ENGUWP+84fAoFqF2+zyblUYvqnJbz2bOPYoKrlNvaP4lm5H8Mgq0cOaPHBZzfInIT9+rkTxbLQETr/OF2mwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iE038NKvWocbyQy1m2So7LI+I3P+P7JiDunXE9faWrQ=;
+ b=BgEMEkRu6VER4Vgh29JCofmor7KEU+jxTYhR2ycRXYUH7j/+aCikgB+mA6uvpqHqvdqMb3O4gKZKFxY3uxZBEL+3oAeKgdVDuq0jiOBHMBEBOJDGqnXhGAz1gKJTBO21Ybdz+NdX9BEUATLXD99H+vikqbBEYwlmVsBGGDvIpMq81bJlINCYRjK1it2CGSsIdcYeaygQ/NqVnKYB5XTIYMyu+de5Pw2IXT6pJNmozJ+GKQFKBQAfc2Fz60a6xIqpzvj6oFRh9KkXIYV3KtbAX4mtN4qE+yh1fEgQgKYBWlyjdgouwmfV0lqoaacj0Rw39q7xJG4qgQDfvQSixQkPTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=spruson.com; dmarc=pass action=none header.from=spruson.com;
+ dkim=pass header.d=spruson.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spruson.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iE038NKvWocbyQy1m2So7LI+I3P+P7JiDunXE9faWrQ=;
+ b=Ci+tOUvcahjRcT042QAEiOb1Pk2QJ/e//96TCjwLt0tMrIE4psVXovfvBkG29vGbXlji67CKhx+aZ2YHjxy0CdEdvvbhJ+BZzBp+PozKvHkaIGxpIFq+rHIbGro4wSI5ZC3TVjuEvW8Y+Iqr7vA+nk1Jz2sXwD1Y1yE6yVDNCp+KMOOrp17GDePpX1yzob2lEkoqlkog7fWWCtJTEQX9qhJEhkpv1VAyJvPlYrrwcqqbcqlUwd9bP/Pfud1r212SsRpThIa/FlW6zpUXhjh5fDtUonfN0s60E+WIbE19LqAbAUohKfTMPhsikLKt/rugCMmandCZGTz3yYYlW6Bqaw==
+Received: from ME5PR01MB11380.ausprd01.prod.outlook.com
+ (2603:10c6:220:26e::19) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ (2603:10c6:10:1b0::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 07:39:46 +0000
+Received: from ME5PR01MB11380.ausprd01.prod.outlook.com
+ ([fe80::1948:e00f:49ce:ed5]) by ME5PR01MB11380.ausprd01.prod.outlook.com
+ ([fe80::1948:e00f:49ce:ed5%5]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 07:39:46 +0000
+From: Duncan Longstaff <Duncan.Longstaff@spruson.com>
+To: "chris@laudando.com" <chris@laudando.com>
+CC: Katrina Crooks <katrina.crooks@spruson.com>, Kelly Guo
+	<Kelly.Guo@spruson.com>
+Subject: FW: VID946/2026 - Carbon Autonomous Robotic Systems Inc. v Laudando &
+ Associates LLC [SEC=OFFICIAL] [EFILE-SAF.FID14317404]
+Thread-Topic: VID946/2026 - Carbon Autonomous Robotic Systems Inc. v Laudando
+ & Associates LLC [SEC=OFFICIAL] [EFILE-SAF.FID14317404]
+Thread-Index: AQHdex3PVCRNQFA9AUSwqc45sEdBtw==
+Date: Mon, 23 Nov 2026 07:39:45 +0000
+Message-ID: <ME5PR01MB113809323740CED846BA8811B92452@ME5PR01MB11380.ausprd01.prod.outlook.com>
+References: <MEAPR01MB3175BD11ACC17AAFEB5B873DA5AE2@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <MEAPR01MB31757C581653D380460B245FA5B62@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <MEAPR01MB31753E99E31847F77FC0CA6BA5B02@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <SY9PR01MB11029C5B7D47143901D71CB0D92B02@SY9PR01MB11029.ausprd01.prod.outlook.com>
+ <SY9PR01MB11029E9B8FBCEDDB1298D7FBA92BF2@SY9PR01MB11029.ausprd01.prod.outlook.com>
+ <SY9PR01MB11029C8A86C7D4CAA4ED36F8792BF2@SY9PR01MB11029.ausprd01.prod.outlook.com>
+ <SY9PR01MB11029A7DAE74E073E08136FBF92BE2@SY9PR01MB11029.ausprd01.prod.outlook.com>
+ <MEAPR01MB3175B76748F4FBDC94F5F533A5BE2@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <MEAPR01MB3175324450DADB9808FA5ABEA5772@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <ME5PR01MB113806CCE366736D3D773090B92772@ME5PR01MB11380.ausprd01.prod.outlook.com>
+ <ME5PR01MB11380989A758246878E887C0F92712@ME5PR01MB11380.ausprd01.prod.outlook.com>
+ <MEAPR01MB3175D45B75B461220A162FE7A5702@MEAPR01MB3175.ausprd01.prod.outlook.com>
+ <ME5PR01MB113804C21714B0C5F845F034992702@ME5PR01MB11380.ausprd01.prod.outlook.com>
+ <MEAPR01MB3175F07BE120929E74853964A5792@MEAPR01MB3175.ausprd01.prod.outlook.com>
+In-Reply-To: <MEAPR01MB3175F07BE120929E74853964A5792@MEAPR01MB3175.ausprd01.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+instanceid: 78F0B21FD501A55C3B8C5B0CC542834C12B77147BCBAD90AAE77A60DDA1CE8E2
+usermessageid: <53b008499fce4618b6abebf6a5ae557a@spruson.com>
+conversationentryid: 0000000031509C5598EE3943B2E5B9349924006E07006D0E39E8AD08B64EBF486CD2AC3FF4090003CA94C34000006D0E39E8AD08B64EBF486CD2AC3FF4090004C230B4AF0000
+copytofolder: IMW
+	<jwBWcUqBpeyryMbih/ISgQYDWPJvFAdZElovfleE3tgspnttgxGApTx9x4GgeDKwTICd/zx7lBO7t588zkeyjeMWiOjbom31G321pgw5jftGPoZn3cTWYX5TH+nib0Xy60+b24vRcwd2LlEDnbC+6Vn/fps+/doONQXzJtgnW+i3DEmgnCNrrDtsD/UqWbIrBqvj7ftlqA7Hi8JL379KiAWOo4f5LaLEocJ0aDZjlmKgrVGDZy+U0Ejpcfxq07fsNap0NdHlKVIwI1RuvxBQZySHmzlB/jUIaspfUl8dbgU=>
+newdescription: <v3RZi4RglrSVVPa0nU3luxGg5techcE7CfYasuD/RJHu8s3BsWvYQrkNw7y4H8itQWouDoAZE7wnd9I7Q2CeRGXN6xCqb1sPS7Yf/MZ0gebl6JXcbIoAK7MMC2VjrZrxgRYPtJtJ4e8qk1OabRIIsoFNK/yVDTQaMyZX4gUN8t3DbBZfyT9vqA==>
+dataentry: FALSE
+conversationfolderid: 0000000031509C5598EE3943B2E5B9349924006E01006D0E39E8AD08B64EBF486CD2AC3FF4090003CA94C3400000
+conversationstoreid: 0000000038A1BB1005E5101AA1BB08002B2A56C20000454D534D44422E444C4C00000000000000001B55FA20AA6611CD9BC800AA002FC45A0C00000044756E63616E2E4C6F6E6773746166664073707275736F6E2E636F6D002F6F3D45786368616E67654C6162732F6F753D45786368616E67652041646D696E6973747261746976652047726F7570202846594449424F484632335350444C54292F636E3D526563697069656E74732F636E3D33396639303830343662346334396537393731613434643765626235323262362D44756E63616E204C6F6E6700E94632F44C0000000200000010000000440075006E00630061006E002E004C006F006E006700730074006100660066004000730070007200750073006F006E002E0063006F006D0000000000
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=spruson.com;
+x-ms-traffictypediagnostic: ME5PR01MB11380:EE_|SYBPR01MB7881:EE_|CY7PEPF000000E8:EE_|IA0PR12MB7723:EE_|DSVPR12MB073533:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbd1236d-db5d-4df2-626b-08df4934f8f2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;ARA:13230040|23010399003|6049299003|1800799024|376014|366016|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|261022113327099003|261021135927099003|261022075727099003|261102123227099003|38070700021|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|261009223027099003|13003099007|4053099003|8096899003|3023799007;
+X-Microsoft-Antispam-Message-Info-Original: 1oRk7R2vcpTS+wyNji8U6L4V9RXJWn6UXxvZM64dEI0sY99VpHfX/EaNqejNsS/gKY+vTpElcnKPVEkgxXRtZWdDgLoHERh7sENssuL3VBl+Lt0eRoIJUZD1wntJ2ZqOCsEyBVflBg+VC2ul69tW5AJzCK8bANnAtlOHEzc67NqVHdKXKzYGRw8z4aMKIZ5mN298KSQO6u3cPf8HAlp3WlbF3KWrUQNgrJw9c3z9RGq+IJQgPcjha1IIRYnWUgF0cKmj2/mQ7HqDQaSDyE8pZoG4FkUEBVGfZfs0FhToFLAY5zsLdjpuugcdzQaJcpVPUfdmBL7ybMOpRDgHwOgrmu5bOqntzdund0B0MyRV0dj+uDU3hqU6e4w7K1eKyfVHXsgKiSab52dXy3zwtgtPHF/q3oLXrTwX0D/2pEl+P9DI5vd95JFKdX6jhiOWUk3f6dUCy4Ch9Q3HU2BQ1Dk/uNJdAYR/TiOcvTpQcfO3cHrPa030zJaD0JjpNfJBFjWxRHdyCz19OMQuTbR8hboEEaeXmo9O37oDWMxBt+hc3woQJ+CelXgsxF2K0lWca+Rb/ow/VgTSSVN2DZG5zbgJNeKNUZyzeIDus4xcLrfbz+DXoBvQ3oVkIDjv5gpIa0OqHwExvMjD71DoQvBa1CNN09HHgMi4sFgXO29jD1eMAJM=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ME5PR01MB11380.ausprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(6049299003)(1800799024)(376014)(366016)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022113327099003)(261021135927099003)(261022075727099003)(261102123227099003)(38070700021)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(13003099007)(4053099003)(8096899003)(3023799007);DIR:OUT;SFP:1102;
+Content-Type: multipart/related;
+	boundary="_005_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_";
+	type="multipart/alternative"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYBPR01MB7881
+X-MDID: 1795419592-KtTf7PjKD_MG
+X-PPE-STACK: {"stack":"us4"}
+X-MDID-I: us4;ut7;1795419592;KtTf7PjKD_MG;<Duncan.Longstaff@spruson.com>;2fc311a4bf4fd341f9c7c36a3815e914
+X-PPE-TRUSTED: V=1;DIR=IN;
+Return-Path: Duncan.Longstaff@spruson.com
+X-MS-Exchange-Organization-ExpirationStartTime: 23 Nov 2026 07:39:57.3661
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: cbd1236d-db5d-4df2-626b-08df4934f8f2
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: b756035b-e2a6-4903-9243-45f492d26789:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: CY7PEPF000000E8.namprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource: CY7PEPF000000E8.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 23542bdf-5f13-43c7-a22c-08df4934f221
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;ARA:13230040|704160611799003|6049299003|260918215300599003|260918224100599003|7149299003|35042699022|10067099003|261026130827099003|4143699003|56012099006|5063699009|261022075727099003|261021133027099003|261009221727099003|261021130227099003|261009220027099003|261009223027099003|261021135927099003|261009221227099003|261102123227099003|261021123027099003|261009223327099003|261021121427099003|261022113327099003|261026135527099003|261022105027099003|261028144727099003|261026140227099003|261022115727099003|261026121527099003|22082099003|16102099003|6133799003|19002099009|13003099007|4053099003|8096899003|4076899003|3023799007|4133799003|18003699003;
+X-Forefront-Antispam-Report: CIP:148.163.129.48;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:dispatch1-us1.ppe-hosted.com;PTR:dispatch1-us1.ppe-hosted.com;CAT:NONE;SFS:(13230040)(704160611799003)(6049299003)(260918215300599003)(260918224100599003)(7149299003)(35042699022)(10067099003)(261026130827099003)(4143699003)(56012099006)(5063699009)(261022075727099003)(261021133027099003)(261009221727099003)(261021130227099003)(261009220027099003)(261009223027099003)(261021135927099003)(261009221227099003)(261102123227099003)(261021123027099003)(261009223327099003)(261021121427099003)(261022113327099003)(261026135527099003)(261022105027099003)(261028144727099003)(261026140227099003)(261022115727099003)(261026121527099003)(22082099003)(16102099003)(6133799003)(19002099009)(13003099007)(4053099003)(8096899003)(4076899003)(3023799007)(4133799003)(18003699003);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 07:39:57.2152
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbd1236d-db5d-4df2-626b-08df4934f8f2
+X-MS-Exchange-CrossTenant-Id: b756035b-e2a6-4903-9243-45f492d26789
+X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000E8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7723
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.0783669
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0639.010
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910005)(944506478)(944626604)(920097)(930201)(20251009284)(140003);
+X-Microsoft-Antispam-Message-Info:
+	=?Windows-1252?Q?yzdVr0BARbcj0T9+g+IfPI49RfaAqamN4rUnmm/mA9lhQebgudV9MskX?=
+ =?Windows-1252?Q?QNVgTt3LIxHp33pa4QlXEvf9G8RArnVPtWGRm4I6//VWTemDKUTluDQd?=
+ =?Windows-1252?Q?f2n2aGhXEjM22z45PpnoR5ixbgHKSMaraFlxvPpiHnCza0GYO57KisId?=
+ =?Windows-1252?Q?rb9251wGox5/3moBHGzpkBYFxSWIU7s70ys9VtHZCK2Qgg2VYBOxQ4bV?=
+ =?Windows-1252?Q?mAHU+9twktHc79LROX5loeArHRSfFneuozlq6sEix8K82eyJ0l1L5Jba?=
+ =?Windows-1252?Q?36Vgl4h9NTleaHkhJCZtGYfrSAvJGFKbwSThnouCbR2rz13DO4JCvmBF?=
+ =?Windows-1252?Q?hQYlJIsW+NQIVFFjeRjpKiBKVXXMjjuQieHycEpw/2V7ROJwRwfFchCF?=
+ =?Windows-1252?Q?Ms1oPvbhBt0y2l3AX9LXWWnhfK2HUOqGnb2hi6tdCNx5OTqJeAZNEwRm?=
+ =?Windows-1252?Q?JbzpXjxTDADKSHaWD9cSGBVfVGwKP/9zUqDZyNdO+V/0xlPcN75jKACh?=
+ =?Windows-1252?Q?jF6QsATwCf2kggUwEq+BgRkFZSaGvLZ5/mDvs9mzrkPx/KsWGl8ZWtJg?=
+ =?Windows-1252?Q?VHOR7ql6XyuBzcPsTN026vu8TVbuLg5ZSBc0jlLmTTH4HAxS2lBu7AHM?=
+ =?Windows-1252?Q?xz5VKwJgwzV+d/kvnR/JEt3x+wXLYJkmo5DqlRt1TusS2lrSJJQBW2ct?=
+ =?Windows-1252?Q?4ILuW3LlRT87ClpemR8LpsDCD+/vm11eRPUjeaP6M3U9DpiUAbLXGCJu?=
+ =?Windows-1252?Q?ric1kcApWxaa67F0azbKMUl6PzMPJSKBh3CrxRPvsJhZY2kgvg+kvWF+?=
+ =?Windows-1252?Q?pU0lQVGgDDWodeyGv7TGklro0if0BG7KhOAgn6bg1xq44Dc70z8zUr2T?=
+ =?Windows-1252?Q?Kg/FyeEuN46B/pKS8EzOxDARu7gMb+CvI/hiSNoZsjWidUJwS9bPd4m/?=
+ =?Windows-1252?Q?gVYUbNjd94XFYkeFPSUPOO8WczT9uQBL+9aBiBR/P87FgWGVAUUi2Fb8?=
+ =?Windows-1252?Q?Y6NHDq5qWOnsDYdQ1MpjT58lgJLJj9BeUg9BNMsSr2Ik3JRvAqdsX1a0?=
+ =?Windows-1252?Q?BzDpx+Y3c3sP06HlE7IMq90Q4+T0e6yisCC9buSDHOflUTEg8p0jTrPk?=
+ =?Windows-1252?Q?jiIiGCYcQOTa3SohNGRitXi2dHuzvv6sW3KbTXzu6bBFySQ+c5zUljYX?=
+ =?Windows-1252?Q?qoVNr6RI+THcfG7uab2WM6u14OzhjpPbD7QGPCGzqqi+C/yasPCzZ3AE?=
+ =?Windows-1252?Q?LYbupJHTNinPcs+fIqeCUUdCGTNuodunE10kkVHNZNEMpYzcWhaYK/uB?=
+ =?Windows-1252?Q?mW4Rc6Pl0Kr6ZJD2XUo9rwOA1qV28yhAuOQVm9BtKvjwh+y/9fC+RQ/w?=
+ =?Windows-1252?Q?E06vsYOG1XVOy5IKxaFKYNKL87vx4xCOB0eMFgBbbRiyxyePPPhsTD54?=
+ =?Windows-1252?Q?+XClSui06A6QHAr4z7Wk86Xz2nP6Vp8/i8PBQtoWNzMJH4LbxVaHhyt8?=
+ =?Windows-1252?Q?jFacKlsLUm7UXTgBK7Oaf2YRO2otgSjiGGpGW7PNooiloB75A7F8JDYc?=
+ =?Windows-1252?Q?P8++FQ8tM3X7Nfowgt4JDwFVNvdFNSAvumdEb5kF0oAwg+x9NH4E9LdL?=
+ =?Windows-1252?Q?QEBzasblcTZVeLuE2fivGlMQSKa9rogyvEwSvqmGzaZMx5+a338bhU/7?=
+ =?Windows-1252?Q?GhJvNKNkO4N4xbIufO9A0EJnqC4XJKnmGBOIMKX0tBlrp2+KELhxlS2p?=
+ =?Windows-1252?Q?R5mPsEPVjHUVTmji6S73+IV5dtb7Ynb9iYfcS2HF5W5l4G9G1z45UlaM?=
+ =?Windows-1252?Q?18uC325JQLgGVTZT9pSgd7t5/9MWOgKILa8zYd9K4Ly4iPwy6z1G6L6W?=
+ =?Windows-1252?Q?of4lTexpVGMiztxR9mEdTk4hk8h/YLm4PC1glJ03lGCM8p3gH+9o/0ad?=
+ =?Windows-1252?Q?XVbUgC+ArtQ39/ebVd5tAjslYV6vVYIpAV62gTrHw6BhkDZW/hwEOIQZ?=
+ =?Windows-1252?Q?scW9ED9DkXa9DW3cA3Jw+lbC0GPW3iTcTWyt19DflWozt9tnwj7Y1mRt?=
+ =?Windows-1252?Q?3ReMVeX15i7PdDBA4Qv2bJY1XfNtdbEUKm1Zujs0eR0tuQatnFbOFtj4?=
+ =?Windows-1252?Q?7oOVnKX0THiGgCuhCpn3eI4gZ5cxzMoG1FBXIHp46O1WWREwqRM4W+7q?=
+ =?Windows-1252?Q?S0PsFLHP/AUVCz6FPOXzSuRcVBlEgxJmYkJMRy5Qq+lQ0B9m9wqC1+VS?=
+ =?Windows-1252?Q?sHKtfQo7tNNE5CwlAP9xBHg0Q5p36ufbCzK3olTsc+dwqdwYOgnXt6HG?=
+ =?Windows-1252?Q?5qMIhLq+JyZPtbe5YXZpLpwR0TvXGZG/L4ARTB02cMXlP7ePpSOyzGq+?=
+ =?Windows-1252?Q?/EU6TFnnPTXF6VrY3HIcZwP4eAxeX0et43iZ2y+p51FuzICXUlmbrgDE?=
+ =?Windows-1252?Q?vBhkWSZhh6MCr0sLRri/RKb9dIimf4DUdHIqzHXBKlPC5NJJOrWNCsTS?=
+ =?Windows-1252?Q?fi9NHR3vIqeTCOjnjsXUVAP1cwPJfI7MmmeB/G+48OipZMvRZfiAOTjg?=
+ =?Windows-1252?Q?M88+EhJvoKF6V1PCPtppc8bB7tuZueULS6KHLg=3D=3D?=
+MIME-Version: 1.0
+
+--_005_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_
+Content-Type: multipart/alternative;
+	boundary="_000_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_"
+
+--_000_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Content-length: 7683
+
+Dear Mr Laudando
+
+The email below from the Court provides the Webex link for the video-link t=
+o the case management and interlocutory hearing listed for 9.30am this Frid=
+ay, 27 November 2026 (Melbourne time), at which Carbon's default judgment a=
+pplication will be heard by his Honour Justice Beach.
+
+Yours sincerely
+
+
+Duncan Longstaff
+Principal
+Spruson & Ferguson Lawyers Pty Limited
+Intellectual Property and Data Law
+[Spruson & Ferguson]
+https://urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__spruson.com&d=3DDwIFA=
+g&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe4=
+RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVW=
+vOcZ_biHQv0m76eG&s=3DkAbqxpRNgjpqEuESspnuucrP1eQZDeVdLfzhYT9xYs0&e=3D<https=
+://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.spruson.com_&d=3DDwIF=
+Ag&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe=
+4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCV=
+WvOcZ_biHQv0m76eG&s=3DxlN-LIDafiPfdzrERCbQ4atBqTRexMys0cThtFMxtn4&e=3D>
+E Duncan.Longstaff@spruson.com<mailto:Duncan.Longstaff@spruson.com>
+T +61 2 9393 0300<tel:+61293930300>
+F +61 2 9267 9974<fax:+61292679974>
+Sydney | Level 24, Tower 2, Darling Park, 201 Sussex Street, Sydney NSW 2000
+Melbourne | Level 27, 385 Bourke Street, Melbourne VIC 3000
+Mail GPO Box 3325, Sydney NSW 2001, Australia
+[Spruson & Ferguson wins Australian Patent Attorney Firm of the Year 2024 |=
+ Global IP Awards]<https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__w=
+ww.spruson.com_news_spruson-2Dferguson-2Dwins-2D2024-2Dglobal-2Dip-2Dawards=
+_&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQ=
+lyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8af=
+jmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DmgY_iabiRZ8UIaxEGAZRH1RN8tWO-pp8jZaUNVXMNPY=
+&e=3D>
+Liability limited by a scheme approved under Professional Standards Legisla=
+tion.
+Spruson & Ferguson companies are members of the IPH Ltd group<https://urlde=
+fense.proofpoint.com/v2/url?u=3Dhttps-3A__www.iphltd.com.au_about-2Diph_&d=
+=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv=
+9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn=
+-d4BrCVWvOcZ_biHQv0m76eG&s=3DJpzsxKyIEoQB5vznUngb2AXJ42WRA52Lrp_83ook2mw&e=
+=3D>, and part of an ownership group for the purposes of the Code of Conduc=
+t for Trans-Tasman Patent and Trade Marks Attorneys 2018. For more informat=
+ion see 'Ownership Group'<https://urldefense.proofpoint.com/v2/url?u=3Dhttp=
+s-3A__www.spruson.com_about_ownership-2Dgroup_&d=3DDwIFAg&c=3DeuGZstcaTDllv=
+imEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96D=
+vj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=
+=3DPWNPuf1H_UvYRNMstZMmVDiM327lMQs8PqK8X78HH1I&e=3D>. Our Privacy Policy<ht=
+tps://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.spruson.com_privac=
+y-2Dpolicy_&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D=
+5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60=
+bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DUsBZyoSCvlnIeXTD81fwDakGPSGJitkF7=
+WnvrOQ0c2Y&e=3D> has been updated effective 19 December 2023.
+Please note This email is only for the use of the individual or entity to w=
+hom it is addressed and contains information which may be confidential and =
+the subject of common law or statutory privilege. If you receive this commu=
+nication in error, please destroy it and notify us immediately. Thank you.
+Important warning There are occasions where anti-spam scanners eliminate le=
+gitimate emails. Emails may also not reach the recipient due to various tec=
+hnical problems, even if they appear to have been delivered. Whilst these s=
+ituations are rare, if you send us important instructions by email, please =
+ensure that you receive by return an acknowledgment of receipt from us so t=
+hat deadlines are not missed.
+
+From: EA - Beach J <https://urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__E=
+A.BeachJ-40fedcourt.gov.au&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_C=
+dpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH=
+64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DEv-touuEnseFIu_qoW=
+DbhAFg1CpOZdj6hV4hccwa7rA&e=3D>
+Sent: Thursday, 19 November 2026 3:04 PM
+To: Duncan Longstaff <Duncan.Longstaff@spruson.com>; Katrina Crooks <https:=
+//urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__katrina.crooks-40spruson.co=
+m&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQ=
+lyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8af=
+jmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DRxrwYBLlibOYyBme-9JRH0v9WhQ1-JoincCeuor58fw=
+&e=3D>; Andrew Rankine <Andrew.Rankine@spruson.com>; Kelly Guo <https://url=
+defense.proofpoint.com/v2/url?u=3Dhttp-3A__Kelly.Guo-40spruson.com&d=3DDwIF=
+Ag&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe=
+4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCV=
+WvOcZ_biHQv0m76eG&s=3DbxmxEVih-DpEd5eWiqlYnFWa6qJVo0J-S_vkHabQUe8&e=3D>
+Cc: VID9462026@fedcourt.gov.au; Associate BeachJ <https://urldefense.proofp=
+oint.com/v2/url?u=3Dhttp-3A__Associate.BeachJ-40fedcourt.gov.au&d=3DDwIFAg&=
+c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe4RA=
+cYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvO=
+cZ_biHQv0m76eG&s=3DP99QgQud8HcOVZ9UMYsXhOwS6KGzuWIWV5J7HzFoyl4&e=3D>
+Subject: VID946/2026 - Carbon Autonomous Robotic Systems Inc. v Laudando & =
+Associates LLC [SEC=3DOFFICIAL]
+
+OFFICIAL
+
+Dear practitioners,
+
+His Honour has listed this matter for a case management hearing and interlo=
+cutory hearing at 9.30 am on 27 November 2026 as an in person hearing.
+
+Please also see below a Webex invitation for those that wish to participate=
+ remotely:
+
+Meeting link
+https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__fedcourt.webex.com_m=
+eet_JusticeBeachCourtroom&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_Cd=
+pgnVfiiMM&r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH6=
+4KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DMsCm1E4plvGrL95xhDa=
+aaSmPTJ2OzzsF4vf8uyF-4BA&e=3D
+
+Meeting number
+2653 307 6844
+
+Video address
+JusticeBeachCourtroom@fedcourt.webex.com<mailto:JusticeBeachCourtroom@fedco=
+urt.webex.com>
+
+Audio connection
+Australia Toll Free 1-800-517-287
+Australia Toll +61-2-9338-2221
+
+Access code
+2653 307 6844
+
+Could the parties please indicate expected appearances and provide a copy o=
+f any proposed orders (in word format) in advance of the hearing.
+
+Kind regards,
+
+
+Yota Amanatidis | Executive Assistant to the Honourable Justice Jonathan Be=
+ach
+
+Federal Court of Australia | 305 William Street Melbourne Victoria 3000
+
+T. (03) 8638 6440 | ea.beachj@fedcourt.gov.au<mailto:ea.beachj@fedcourt.gov=
+.au> | https://urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__www.fedcourt.g=
+ov.au&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5JZmaW=
+FVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJ=
+H8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DzqrMEkPGSelB7MFPC5iwKkI_sM3WS2ufR0C2xnr=
+Yo-0&e=3D<https://urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__www.fedcour=
+t.gov.au_&d=3DDwIFAg&c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&r=3D5J=
+ZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&m=3DtU35qSxXtZmH64KmSKzd0kjJS60bb=
+n4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&s=3DaoVTaMjLn-AUK1icqxg297BpAL2B4pg6xOw=
+vFKJBqqA&e=3D>
+
+
+
+Please ensure that all official correspondence to Chambers is sent to assoc=
+iate.beachj@fedcourt.gov.au<mailto:associate.beachj@fedcourt.gov.au> and ea=
+.beachj@fedcourt.gov.au<mailto:ea.beachj@fedcourt.gov.au>.
+
+--_000_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Content-length: 25118
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Aptos;
+	panose-1:2 11 0 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Georgia;
+	panose-1:2 4 5 2 5 4 5 2 3 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ligatures:standardcontextual;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#467886;
+	text-decoration:underline;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-AU" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">Dear Mr Laudando<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">The email below from the Court provides the Webex lin=
+k for the video-link to the case management and interlocutory hearing liste=
+d for 9.30am this Friday, 27 November 2026 (Melbourne
+ time), at which Carbon&#8217;s default judgment application will be heard =
+by his Honour Justice Beach.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">Yours sincerely<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" style=3D"border-collapse:collapse">
+<tbody>
+<tr>
+<td valign=3D"top" style=3D"padding:0cm 0cm 0cm 0cm">
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" style=3D"border-collapse:collapse">
+<tbody>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"line-height:18.0pt"><span style=3D"font-siz=
+e:13.5pt;font-family:&quot;Georgia&quot;,serif;color:black;mso-ligatures:no=
+ne;mso-fareast-language:EN-AU">Duncan Longstaff
+<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt;line-height:11.25pt"><spa=
+n style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:=
+black;mso-ligatures:none;mso-fareast-language:EN-AU">Principal
+<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:6.75pt;line-height:11.25pt"><b><=
+span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;col=
+or:black;mso-ligatures:none;mso-fareast-language:EN-AU">Spruson &amp; Fergu=
+son Lawyers Pty Limited<br>
+Intellectual Property and Data Law <o:p></o:p></span></b></p>
+<p class=3D"MsoNormal" style=3D"margin-top:18.0pt;mso-line-height-alt:0pt">=
+<span style=3D"font-size:1.0pt;mso-ligatures:none;mso-fareast-language:EN-A=
+U"><img width=3D"134" height=3D"64" style=3D"width:1.3958in;height:.6666in"=
+ id=3D"_x0000_i1026" src=3D"cid:image001.png@01DD7B79.EC065480" alt=3D"Spru=
+son &amp; Ferguson"></span><span style=3D"font-size:1.0pt;mso-ligatures:non=
+e;mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:5.25pt;line-height:11.25pt"><b><=
+span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;col=
+or:#F47D41;mso-ligatures:none;mso-fareast-language:EN-AU"><a href=3D"https:=
+//urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.spruson.com_&amp;d=3DD=
+wMFAg&amp;c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&amp;r=3D5JZmaWFVA=
+Qlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&amp;m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4z=
+JH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&amp;s=3DxlN-LIDafiPfdzrERCbQ4atBqTRexMys0c=
+ThtFMxtn4&amp;e=3D"><span lang=3D"DE" style=3D"color:#F47D41;text-decoratio=
+n:none">spruson.com</span></a></span></b><b><span style=3D"font-size:10.0pt=
+;font-family:&quot;Arial&quot;,sans-serif;color:#F47D41;mso-ligatures:none;=
+mso-fareast-language:EN-AU">
+<span lang=3D"DE"><o:p></o:p></span></span></b></p>
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt;line-height:11.25pt"><b><s=
+pan lang=3D"DE" style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,san=
+s-serif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU">E</span>=
+</b><span lang=3D"DE" style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,sans-serif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU">
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-s=
+erif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU"><a href=3D"=
+mailto:Duncan.Longstaff@spruson.com"><span lang=3D"DE" style=3D"color:black=
+">Duncan.Longstaff@spruson.com</span></a></span><span lang=3D"DE" style=3D"=
+font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-l=
+igatures:none;mso-fareast-language:EN-AU"><br>
+<b>T</b> </span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,sans-serif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU"><a=
+ href=3D"tel:+61293930300"><span lang=3D"DE" style=3D"color:black;text-deco=
+ration:none">+61 2 9393 0300</span></a></span><span lang=3D"DE" style=3D"fo=
+nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-lig=
+atures:none;mso-fareast-language:EN-AU"><br>
+<b>F</b> </span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,sans-serif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU"><a=
+ href=3D"fax:+61292679974"><span lang=3D"DE" style=3D"color:black;text-deco=
+ration:none">+61 2 9267 9974</span></a></span><span style=3D"font-size:10.0=
+pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;=
+mso-fareast-language:EN-AU">
+<span lang=3D"DE"><o:p></o:p></span></span></p>
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt;line-height:11.25pt"><b><s=
+pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;colo=
+r:black;mso-ligatures:none;mso-fareast-language:EN-AU">Sydney |</span></b><=
+span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;col=
+or:black;mso-ligatures:none;mso-fareast-language:EN-AU">
+ Level 24, Tower 2, Darling Park, 201 Sussex Street, Sydney NSW 2000<br>
+<b>Melbourne |</b> Level 27, 385 Bourke Street, Melbourne VIC 3000 <o:p></o=
+:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt;line-height:11.25pt"><b><s=
+pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;colo=
+r:black;mso-ligatures:none;mso-fareast-language:EN-AU">Mail</span></b><span=
+ style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:b=
+lack;mso-ligatures:none;mso-fareast-language:EN-AU">
+ GPO Box 3325, Sydney NSW 2001, Australia <o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:15.75pt;mso-line-height-alt:0pt"=
+><a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.spru=
+son.com_news_spruson-2Dferguson-2Dwins-2D2024-2Dglobal-2Dip-2Dawards_&amp;d=
+=3DDwMFAg&amp;c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&amp;r=3D5JZma=
+WFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&amp;m=3DtU35qSxXtZmH64KmSKzd0kjJS60b=
+bn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&amp;s=3DmgY_iabiRZ8UIaxEGAZRH1RN8tWO-p=
+p8jZaUNVXMNPY&amp;e=3D"><span style=3D"font-size:1.0pt;color:#000001;mso-li=
+gatures:none;mso-fareast-language:EN-AU;text-decoration:none"><img border=
+=3D"0" width=3D"520" height=3D"80" style=3D"width:5.4166in;height:.8333in" =
+id=3D"_x0000_i1025" src=3D"cid:image002.jpg@01DD7B79.EC065480" alt=3D"Sprus=
+on &amp; Ferguson wins Australian Patent Attorney Firm of the Year 2024 | G=
+lobal IP Awards"></span></a><span style=3D"font-size:1.0pt;mso-ligatures:no=
+ne;mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:14.25pt;mso-line-height-alt:6.75=
+pt"><b><span style=3D"font-size:7.5pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU">Liability li=
+mited by a scheme approved under Professional Standards
+ Legislation. <o:p></o:p></span></b></p>
+<p class=3D"MsoNormal" style=3D"margin-top:12.75pt;line-height:6.75pt"><spa=
+n style=3D"font-size:6.0pt;font-family:&quot;Arial&quot;,sans-serif;color:b=
+lack;mso-ligatures:none;mso-fareast-language:EN-AU">Spruson &amp; Ferguson =
+companies are members of the
+<a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.iphlt=
+d.com.au_about-2Diph_&amp;d=3DDwMFAg&amp;c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5=
+A_CdpgnVfiiMM&amp;r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&amp;m=3Dt=
+U35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&amp;s=3DJpz=
+sxKyIEoQB5vznUngb2AXJ42WRA52Lrp_83ook2mw&amp;e=3D"><span style=3D"color:bla=
+ck">IPH Ltd group</span></a>, and part of an ownership group for the purpos=
+es of the Code of Conduct for Trans-Tasman Patent and Trade Marks Attorneys=
+ 2018. For more information see
+<a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.sprus=
+on.com_about_ownership-2Dgroup_&amp;d=3DDwMFAg&amp;c=3DeuGZstcaTDllvimEN8b7=
+jXrwqOf-v5A_CdpgnVfiiMM&amp;r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4=
+&amp;m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&a=
+mp;s=3DPWNPuf1H_UvYRNMstZMmVDiM327lMQs8PqK8X78HH1I&amp;e=3D"><span style=3D=
+"color:black">&#8216;Ownership Group&#8217;</span></a>.
+<a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.sprus=
+on.com_privacy-2Dpolicy_&amp;d=3DDwMFAg&amp;c=3DeuGZstcaTDllvimEN8b7jXrwqOf=
+-v5A_CdpgnVfiiMM&amp;r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&amp;m=
+=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&amp;s=
+=3DUsBZyoSCvlnIeXTD81fwDakGPSGJitkF7WnvrOQ0c2Y&amp;e=3D"><span style=3D"col=
+or:black">Our Privacy Policy</span></a> has been updated effective 19 Decem=
+ber 2023.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt;line-height:6.75pt"><b><s=
+pan style=3D"font-size:6.0pt;font-family:&quot;Arial&quot;,sans-serif;color=
+:black;mso-ligatures:none;mso-fareast-language:EN-AU">Please note</span></b=
+><span style=3D"font-size:6.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:black;mso-ligatures:none;mso-fareast-language:EN-AU">
+ This email is only for the use of the individual or entity to whom it is a=
+ddressed and contains information which may be confidential and the subject=
+ of common law or statutory privilege. If you receive this communication in=
+ error, please destroy it and notify
+ us immediately. Thank you. <o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt;line-height:6.75pt"><b><s=
+pan style=3D"font-size:6.0pt;font-family:&quot;Arial&quot;,sans-serif;color=
+:black;mso-ligatures:none;mso-fareast-language:EN-AU">Important warning</sp=
+an></b><span style=3D"font-size:6.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:black;mso-ligatures:none;mso-fareast-language:EN-AU">
+ There are occasions where anti-spam scanners eliminate legitimate emails. =
+Emails may also not reach the recipient due to various technical problems, =
+even if they appear to have been delivered. Whilst these situations are rar=
+e, if you send us important instructions
+ by email, please ensure that you receive by return an acknowledgment of re=
+ceipt from us so that deadlines are not missed.
+<o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:EN-AU">From=
+:</span></b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,s=
+ans-serif;mso-ligatures:none;mso-fareast-language:EN-AU"> EA -
+ Beach J &lt;EA.BeachJ@fedcourt.gov.au&gt; <br>
+<b>Sent:</b> Thursday, 19 November 2026 3:04 PM<br>
+<b>To:</b> Duncan Longstaff &lt;Duncan.Longstaff@spruson.com&gt;; Katrina C=
+rooks &lt;katrina.crooks@spruson.com&gt;; Andrew Rankine &lt;Andrew.Rankine=
+@spruson.com&gt;; Kelly Guo &lt;Kelly.Guo@spruson.com&gt;<br>
+<b>Cc:</b> VID9462026@fedcourt.gov.au; Associate BeachJ &lt;Associate.Beach=
+J@fedcourt.gov.au&gt;<br>
+<b>Subject:</b> VID946/2026 - Carbon Autonomous Robotic Systems Inc. v Laud=
+ando &amp; Associates LLC [SEC=3DOFFICIAL]<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><a name=
+=3D"_jsPrependBmk_"><b><span style=3D"font-size:12.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black;mso-fareast-language:EN-AU">OFFICIAL</span=
+></b></a><span style=3D"mso-bookmark:_jsPrependBmk_"></span><a name=3D"_jsP=
+rependBmkEnd_"></a><span style=3D"mso-fareast-language:EN-AU"><o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-AU"><o:p>&nbs=
+p;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">Dear practitioners,<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">&nbsp;<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">His Honour has listed =
+this matter for a
+<b>case management hearing and interlocutory hearing at 9.30 am on 27 Novem=
+ber 2026
+</b>as an in person hearing.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">&nbsp;<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">Please also see below =
+a Webex invitation for those that wish to participate remotely:<o:p></o:p><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">&nbsp;<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Meeting link<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU"><a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__fe=
+dcourt.webex.com_meet_JusticeBeachCourtroom&amp;d=3DDwMFAg&amp;c=3DeuGZstca=
+TDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&amp;r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvi=
+keUfIU96Dvj4&amp;m=3DtU35qSxXtZmH64KmSKzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_b=
+iHQv0m76eG&amp;s=3DMsCm1E4plvGrL95xhDaaaSmPTJ2OzzsF4vf8uyF-4BA&amp;e=3D"><s=
+pan style=3D"color:blue">https://fedcourt.webex.com/meet/JusticeBeachCourtr=
+oom</span></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Meeting number<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">2653 307 6844<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Video address<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU"><a href=3D"mailto:JusticeBeachCourtroom@fedcourt.webex.com"><span st=
+yle=3D"color:blue">JusticeBeachCourtroom@fedcourt.webex.com</span></a><o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Audio connection<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Australia Toll Free 1-800-517-287<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Australia Toll +61-2-9338-2221<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">Access code<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:54.0pt"><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;mso-ligatures:none;mso-fareast-language:=
+EN-AU">2653 307 6844<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">&nbsp;<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">Could the parties plea=
+se indicate expected appearances and provide a copy of any proposed orders =
+(in word format) in advance of the hearing.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">&nbsp;<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;mso-ligatures:none;mso-fareast-language:EN-AU">Kind regards,<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"3" cellpadding=
+=3D"0" width=3D"143%" style=3D"width:143.3%">
+<tbody>
+<tr>
+<td width=3D"96%" colspan=3D"2" style=3D"width:96.2%;padding:.75pt .75pt .7=
+5pt .75pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><b><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
+:#1F497D;mso-fareast-language:EN-AU">Yota Amanatidis</span></b><span style=
+=3D"font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D;mso-fareast-la=
+nguage:EN-AU">
+ | Executive Assistant to the Honourable Justice Jonathan Beach&nbsp;</span=
+><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D;ms=
+o-ligatures:none;mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+</td>
+<td width=3D"7" style=3D"width:5.25pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-ligatures:none;m=
+so-fareast-language:EN-AU">&nbsp;<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:#1=
+F497D;mso-fareast-language:EN-AU">Federal Court of Australia | 305 William =
+Street Melbourne Victoria 3000
+<o:p></o:p></span></p>
+</td>
+<td width=3D"7" style=3D"width:5.25pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-ligatures:none;m=
+so-fareast-language:EN-AU">&nbsp;<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:#1=
+F497D;mso-fareast-language:EN-AU">T.&nbsp;(03) 8638 6440 |
+</span><span style=3D"font-size:12.0pt;mso-fareast-language:EN-AU"><a href=
+=3D"mailto:ea.beachj@fedcourt.gov.au"><span style=3D"font-size:11.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif;color:#1F497D">ea.beachj@fedcourt.gov=
+.au</span></a></span><span style=3D"font-family:&quot;Calibri&quot;,sans-se=
+rif;color:#1F497D;mso-fareast-language:EN-AU">
+ | </span><span style=3D"font-size:12.0pt;mso-fareast-language:EN-AU"><a hr=
+ef=3D"https://urldefense.proofpoint.com/v2/url?u=3Dhttp-3A__www.fedcourt.go=
+v.au_&amp;d=3DDwMFAg&amp;c=3DeuGZstcaTDllvimEN8b7jXrwqOf-v5A_CdpgnVfiiMM&am=
+p;r=3D5JZmaWFVAQlyv9w7Hbxe4RAcYw0YDvikeUfIU96Dvj4&amp;m=3DtU35qSxXtZmH64KmS=
+Kzd0kjJS60bbn4zJH8afjmn-d4BrCVWvOcZ_biHQv0m76eG&amp;s=3DaoVTaMjLn-AUK1icqxg=
+297BpAL2B4pg6xOwvFKJBqqA&amp;e=3D" title=3D"http://www.fedcourt.gov.au/"><s=
+pan style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;co=
+lor:#1F497D">www.fedcourt.gov.au</span></a></span><span style=3D"font-famil=
+y:&quot;Calibri&quot;,sans-serif;color:#1F497D;mso-fareast-language:EN-AU">=
+&nbsp;
+<o:p></o:p></span></p>
+</td>
+<td width=3D"7" style=3D"width:5.25pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;mso-ligatures:none;m=
+so-fareast-language:EN-AU">&nbsp;<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td width=3D"64%" style=3D"width:64.0%;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;<o:p></o:p></=
+span></p>
+</td>
+<td colspan=3D"2" style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:#1F497D;mso-fareast-language:EN-AU"><o:p>&nbsp;</o:p></span></p=
+>
+</td>
+</tr>
+<tr>
+<td width=3D"673" style=3D"width:504.75pt;padding:0cm 0cm 0cm 0cm"></td>
+<td width=3D"339" style=3D"width:254.25pt;padding:0cm 0cm 0cm 0cm"></td>
+<td width=3D"3" style=3D"width:2.25pt;padding:0cm 0cm 0cm 0cm"></td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><i><span style=3D"font-family:&quot;Calibri&quot;,sa=
+ns-serif;color:red;mso-fareast-language:EN-AU">Please ensure that all offic=
+ial correspondence to Chambers is sent to
+</span></i><span style=3D"font-size:12.0pt;mso-fareast-language:EN-AU"><a h=
+ref=3D"mailto:associate.beachj@fedcourt.gov.au"><i><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:blue">associate.be=
+achj@fedcourt.gov.au</span></i></a></span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:#1F497D;mso-fareast-language:EN-AU">
+</span><i><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:r=
+ed;mso-fareast-language:EN-AU">and</span></i><span style=3D"font-family:&qu=
+ot;Calibri&quot;,sans-serif;color:#1F497D;mso-fareast-language:EN-AU">
+</span><span style=3D"font-size:12.0pt;mso-fareast-language:EN-AU"><a href=
+=3D"mailto:ea.beachj@fedcourt.gov.au"><i><span style=3D"font-size:11.0pt;fo=
+nt-family:&quot;Calibri&quot;,sans-serif;color:blue">ea.beachj@fedcourt.gov=
+.au</span></i></a></span><i><span style=3D"font-family:&quot;Calibri&quot;,=
+sans-serif;color:#1F497D;mso-fareast-language:EN-AU">.<o:p></o:p></span></i=
+></p>
+</div>
+</body>
+</html>
+
+--_000_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_--
+
+--_005_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_
+Content-Type: image/png; name="image001.png"
+Content-Description: image001.png
+Content-Disposition: inline; filename="image001.png"; size=5773;
+	creation-date="Mon, 23 Nov 2026 07:39:45 GMT";
+	modification-date="Mon, 23 Nov 2026 07:39:45 GMT"
+Content-ID: <image001.png@01DD7B79.EC065480>
+Content-Transfer-Encoding: base64
+Content-length: 7829
+
+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
+BMyejQAAAABJRU5ErkJggg==
+
+--_005_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_
+Content-Type: image/jpeg; name="image002.jpg"
+Content-Description: image002.jpg
+Content-Disposition: inline; filename="image002.jpg"; size=8265;
+	creation-date="Mon, 23 Nov 2026 07:39:45 GMT";
+	modification-date="Mon, 23 Nov 2026 07:39:45 GMT"
+Content-ID: <image002.jpg@01DD7B79.EC065480>
+Content-Transfer-Encoding: base64
+Content-length: 11204
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAoHBwkHBgoJCAkLCwoMDxkQDw4ODx4WFxIZJCAmJSMg
+IyIoLTkwKCo2KyIjMkQyNjs9QEBAJjBGS0U+Sjk/QD3/2wBDAQsLCw8NDx0QEB09KSMpPT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT3/wAARCABQAggDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDxmiii
+gAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKA
+CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAHQttmRvRga9B
+PSvPK720l86yhkH8SA1y4lbM7cG9Wh5php5phrnR3kZrkdVTZqc49WzXXGue8QwFZ45h0YbT9RW9
+B2kc2LjeF+xj0UUV1nmBRRRQAUUUUAFdymi+FdK8JaNqetRarNPqQlOLWRAq7GA/i+orhq9MvINA
+m+HHhT+37u+t8C58r7LEr7vnGc56dqAOb8ReHdNi0G11/wAPXFzLp08xt5IrpQJYJQM4JHBBHeso
+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
+
+--_005_ME5PR01MB113809323740CED846BA8811B92452ME5PR01MB11380au_--
